@@ -278,11 +278,6 @@ html, body, [class*="css"] {
 [data-testid="stProgress"] > div > div {
     background: linear-gradient(90deg, var(--primary), var(--cyan)) !important;
     box-shadow: 0 0 16px rgba(0, 229, 255, 0.55);
-}
-[data-testid="stProgress"] > div {
-    background: rgba(255,255,255,0.06);
-    border-radius: 999px;
-}
 
 /* Dataframe */
 [data-testid="stDataFrame"] {
