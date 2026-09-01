@@ -413,14 +413,7 @@ POSE_MODEL_URL = (
 )
 FALL_LABEL = "fall"
 ALERT_CONFIDENCE_THRESHOLD = 0.60
-VIDEO_FRAME_SAMPLE_RATE = 5  # process every Nth frame for speed
-
-# Hardcoded BlazePose 33-point skeleton connections. NOTE: we define this
-# manually instead of importing mp.solutions.pose.POSE_CONNECTIONS because
-# the legacy mp.solutions API has been breaking with
-# "AttributeError: module 'mediapipe' has no attribute 'solutions'" on
-# recent MediaPipe releases. This list is identical to the official one,
-# just declared directly so we don't depend on the broken module.
+VIDEO_FRAME_SAMPLE_RATE = 5 
 POSE_CONNECTIONS = [
     (0, 1), (1, 2), (2, 3), (3, 7), (0, 4), (4, 5), (5, 6), (6, 8),
     (9, 10),
@@ -432,9 +425,6 @@ POSE_CONNECTIONS = [
 ]
 
 
-# ----------------------------------------------------------------------
-# CACHED LOADERS
-# ----------------------------------------------------------------------
 @st.cache_resource
 def load_artifacts():
     model = load_model(MODEL_PATH)
@@ -458,9 +448,6 @@ def get_pose_detector():
     return mp_vision.PoseLandmarker.create_from_options(options)
 
 
-# ----------------------------------------------------------------------
-# SESSION STATE (dashboard counters persist across uploads)
-# ----------------------------------------------------------------------
 if "total_detected" not in st.session_state:
     st.session_state.total_detected = 0
 if "fall_count" not in st.session_state:
@@ -470,15 +457,7 @@ if "normal_count" not in st.session_state:
 if "activity_log" not in st.session_state:
     st.session_state.activity_log = []  # list of dicts: {activity, confidence}
 
-
-# ----------------------------------------------------------------------
-# CORE PREDICTION FUNCTION
-# ----------------------------------------------------------------------
 def draw_pose_landmarks(image_bgr, landmarks):
-    """
-    Manually draws the pose skeleton with OpenCV instead of
-    mp.solutions.drawing_utils (avoids the broken legacy API).
-    """
     h, w = image_bgr.shape[:2]
     points = [(int(lm.x * w), int(lm.y * h)) for lm in landmarks]
 
@@ -491,11 +470,6 @@ def draw_pose_landmarks(image_bgr, landmarks):
 
 
 def predict_frame(frame_bgr, model, scaler, class_names, pose_detector):
-    """
-    Runs pose detection + classification on a single BGR frame.
-    Returns (annotated_frame, predicted_label, confidence) or
-    (annotated_frame, None, None) if no pose was detected.
-    """
     frame_rgb = cv2.cvtColor(frame_bgr, cv2.COLOR_BGR2RGB)
     mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame_rgb)
     result = pose_detector.detect(mp_image)
@@ -562,10 +536,6 @@ def show_alert_if_fall(label, confidence):
             unsafe_allow_html=True,
         )
 
-
-# ----------------------------------------------------------------------
-# SIDEBAR
-# ----------------------------------------------------------------------
 with st.sidebar:
     st.markdown('<div class="sf-badge">🚨</div>', unsafe_allow_html=True)
     st.markdown('<p class="sf-sidebar-title">SafeFall AI</p>', unsafe_allow_html=True)
@@ -580,9 +550,6 @@ with st.sidebar:
         st.session_state.activity_log = []
         st.rerun()
 
-# ----------------------------------------------------------------------
-# MAIN HEADER
-# ----------------------------------------------------------------------
 PULSE_SVG = """
 <svg class="sf-pulse" viewBox="0 0 600 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
@@ -636,10 +603,6 @@ def render_result_banner(label, confidence):
         unsafe_allow_html=True,
     )
 
-
-# ----------------------------------------------------------------------
-# LEFT COLUMN: upload + prediction
-# ----------------------------------------------------------------------
 with col_main:
     st.markdown('<div class="sf-section-label">Input</div>', unsafe_allow_html=True)
 
@@ -721,9 +684,6 @@ with col_main:
                 unsafe_allow_html=True,
             )
 
-# ----------------------------------------------------------------------
-# RIGHT COLUMN: monitoring dashboard
-# ----------------------------------------------------------------------
 with col_dashboard:
     st.markdown('<div class="sf-section-label">Monitoring analytics</div>', unsafe_allow_html=True)
 
