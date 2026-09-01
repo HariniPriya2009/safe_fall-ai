@@ -1,86 +1,305 @@
-# SafeFall AI — Elderly Fall Detection System (FA-2)
+Canva Video Link: https://canva.link/mrh2upt6jwd2uxh
+# SafeFall AI – Elderly Fall Detection System
 
-CareVision HealthTech Pvt. Ltd. | AI-Powered Elderly Fall Detection using MediaPipe Pose + 1D-CNN, deployed via Streamlit.
+## Project Overview
 
-This repo covers **Steps 4–7** of FA-2, continuing from the FA-1 storyboard (problem definition, preprocessing, EDA).
+SafeFall AI is an AI-powered healthcare monitoring system designed to detect elderly falls and classify daily activities using Computer Vision, Pose Estimation, Machine Learning, and Deep Learning techniques.
 
-## Pipeline overview
+The system analyzes human body posture and movement patterns to identify activities such as:
 
-| File | Step | What it does |
-|---|---|---|
-| `1_pose_landmark_extraction.py` | Step 4–5 (feature extraction) | Runs MediaPipe Pose on your FA-1 frame folders, saves 132 landmark features per frame to `landmarks_dataset.csv` |
-| `2_train_model.py` | Step 5 (training) | Splits data 70/15/15, trains a 1D-CNN classifier, saves model + accuracy/loss plots |
-| `3_evaluate_model.py` | Step 6 (evaluation) | Computes Accuracy/Precision/Recall/F1, confusion matrix |
-| `app.py` | Step 7 (deployment) | Streamlit dashboard: upload image/video, get predictions, fall alerts, monitoring analytics |
+*  Walking
+*  Sitting
+*  Standing
+*  Normal Activity
+*  Fall Detection
 
-## 1. Run in Google Colab / Jupyter
+Whenever a fall is detected, the system generates emergency alerts to assist caregivers, hospitals, and elderly care centers in responding quickly to potential accidents.
 
-```bash
-!pip install mediapipe opencv-python pandas tqdm tensorflow scikit-learn matplotlib seaborn joblib
-```
+This project was developed as part of the FA-2 Machine Learning and Deep Learning Project, focusing on the practical implementation and deployment of an AI-powered healthcare monitoring solution.
 
-Upload your FA-1 organized dataset (`dataset/fall`, `dataset/walking`, `dataset/sitting`,
-`dataset/standing`, `dataset/normal`), then run in order:
 
-```bash
-python 1_pose_landmark_extraction.py
-python 2_train_model.py
-python 3_evaluate_model.py
-```
 
-This produces the evidence files FA-2 asks for:
-- `landmarks_dataset.csv`
-- `accuracy_plot.png`, `loss_plot.png`
-- `confusion_matrix.png`, `classification_report.txt`
-- `fall_detection_model.h5`, `feature_scaler.pkl`, `label_encoder_classes.npy`
+##  Objectives
 
-Take screenshots of pose detection output, training curves, and the confusion matrix for your
-recorded video walkthrough.
+The primary objectives of this project are:
 
-## 2. Push to GitHub
+* Detect elderly falls using AI and Computer Vision.
+* Classify human activities from image and video inputs.
+* Improve patient safety through automated monitoring.
+* Generate emergency alerts during fall incidents.
+* Deploy a user-friendly healthcare dashboard using Streamlit.
+* Demonstrate the application of Deep Learning in healthcare monitoring systems.
 
-```bash
-git init
-git add .
-git commit -m "FA-2: fall detection pipeline + Streamlit app"
-git branch -M main
-git remote add origin https://github.com/<your-username>/<your-repo>.git
-git push -u origin main
-```
 
-**Important:** commit the trained artifacts too (`fall_detection_model.h5`, `feature_scaler.pkl`,
-`label_encoder_classes.npy`) — `app.py` loads them directly from the repo root. Do **not** commit
-the raw `dataset/` folder (too large); only the code + trained artifacts are needed for deployment.
+##  Problem Statement
 
-## 3. Deploy on Streamlit Cloud
+Falls are one of the leading causes of injury among elderly individuals. Continuous monitoring by caregivers is often difficult, especially in homes, hospitals, and elderly care facilities.
 
-1. Go to https://share.streamlit.io and sign in with GitHub.
-2. Click **New app**, select your repo, branch `main`, and set **Main file path** to `app.py`.
-3. Deploy. Streamlit Cloud will install everything from `requirements.txt` automatically.
-4. Copy the live app URL — this is your "Link to deployed project" for the FA-2 checklist.
+SafeFall AI addresses this challenge by providing an automated monitoring system capable of:
 
-## 4. Test locally (optional, before deploying)
+* Detecting falls in real time.
+* Monitoring daily activities.
+* Reducing response time during emergencies.
+* Supporting healthcare professionals with AI-assisted monitoring.
 
-```bash
-pip install -r requirements.txt
-streamlit run app.py
-```
+##  Technologies Used
 
-## Notes on model design choice
+### Programming Language
 
-The classifier operates on **MediaPipe pose landmarks** (132 features: x, y, z, visibility for
-33 body keypoints) rather than raw pixels. This directly follows the FA-2 workflow — "Detecting
-body landmarks using pose estimation → Extracting features from posture and movement → Training
-the deep learning classification model" — and is lighter weight and more robust to background/
-lighting variation than a pure image CNN, while still using a CNN architecture (1D-CNN over the
-landmark vector) as recommended in Step 4.
+* Python
 
-## Step 8: Monitoring & Maintenance (write-up, not code)
+### Computer Vision
 
-Include in your final report/video:
-- Periodic retraining plan using new Le2i-style recordings or CareVision's own facility footage
-- Plan to reduce false alerts (raise `ALERT_CONFIDENCE_THRESHOLD` in `app.py`, collect more
-  "sitting vs falling" edge-case samples)
-- Handling low-light: augment training data with brightness-adjusted frames (from FA-1 EDA)
-- Path to real-time CCTV: swap the video-upload loop in `app.py` for a live `cv2.VideoCapture(0)`
-  or an RTSP stream once deployed on-premise instead of Streamlit Cloud
+* OpenCV
+* MediaPipe Pose Estimation
+
+### Machine Learning & Deep Learning
+
+* TensorFlow
+* Keras
+* Scikit-learn
+
+### Data Processing
+
+* NumPy
+* Pandas
+
+### Data Visualization
+
+* Matplotlib
+* Seaborn
+
+### Deployment
+
+* Streamlit
+* Streamlit Cloud
+
+##  Dataset
+
+The project utilizes the Le2i Fall Detection Dataset, which contains videos and frames representing various human activities.
+
+### Activity Classes
+
+* Fall
+* Walking
+* Sitting
+* Standing
+* Normal Activity
+
+### Dataset Processing
+
+The dataset underwent:
+
+* Video extraction
+* Frame generation
+* Image resizing
+* Data labeling
+* Activity categorization
+* Feature extraction
+
+##  System Workflow
+
+### Step 1: Data Collection
+
+Acquire elderly activity videos and fall incident samples.
+
+### Step 2: Data Preprocessing
+
+* Extract frames from videos.
+* Resize images.
+* Normalize pixel values.
+* Organize activity classes.
+
+### Step 3: Pose Estimation
+
+MediaPipe Pose is used to detect human body landmarks such as:
+
+* Shoulders
+* Elbows
+* Hips
+* Knees
+* Ankles
+
+### Step 4: Feature Extraction
+
+Pose landmarks are converted into meaningful numerical features representing body posture and movement.
+
+### Step 5: Activity Classification
+
+A Deep Learning model is trained to classify activities into:
+
+* Fall
+* Walking
+* Sitting
+* Standing
+* Normal Activity
+
+### Step 6: Alert Generation
+
+When a fall is detected:
+
+* Warning messages are displayed.
+* Emergency alerts are generated.
+
+### Step 7: Dashboard Deployment
+
+The trained model is deployed through Streamlit for user interaction.
+
+## Model Architecture
+
+The AI pipeline consists of:
+
+Input Video/Image
+
+⬇
+
+Pose Estimation (MediaPipe)
+
+⬇
+
+Feature Extraction
+
+⬇
+
+Deep Learning Classification Model
+
+⬇
+
+Activity Prediction
+
+⬇
+
+Alert System
+
+⬇
+
+Streamlit Dashboard
+
+## Model Evaluation
+
+The model was evaluated using:
+
+### Accuracy
+
+Measures overall prediction correctness.
+
+### Precision
+
+Measures how many predicted falls were actually falls.
+
+### Recall
+
+Measures how many actual falls were successfully detected.
+
+### F1-Score
+
+Balances Precision and Recall.
+
+### Confusion Matrix
+
+Used to analyze:
+
+* Correct predictions
+* False alarms
+* Missed fall detections
+* Misclassified activities
+
+##  Alert System
+
+The alert system is designed to improve emergency response.
+
+### Features
+
+* Fall Detection Alerts
+* Emergency Warning Messages
+* Visual Notifications
+* Monitoring Dashboard Alerts
+
+Example:
+
+WARNING: Fall Detected!
+
+Immediate attention may be required.
+
+##  Streamlit Dashboard Features
+
+The deployed web application provides:
+
+### Image Upload
+
+Users can upload images for activity prediction.
+
+### Video Upload
+
+Users can upload videos for activity analysis.
+
+### AI Prediction
+
+The model predicts the detected activity.
+
+### Pose Visualization
+
+Displays detected body landmarks.
+
+### Monitoring Analytics
+
+Shows system statistics and predictions.
+
+### Alert Generation
+
+Triggers notifications during fall events.
+
+## Live Application
+
+### Streamlit Deployment
+
+SafeFall AI Web App:
+
+https://harinipriya1000410-safe-fall-ai.streamlit.app/
+
+## Future Improvements
+
+The system can be enhanced by:
+
+* Supporting live CCTV monitoring.
+* Improving performance in low-light environments.
+* Adding more training data.
+* Increasing pose estimation accuracy.
+* Reducing false alarms.
+* Implementing real-time notifications.
+* Integrating SMS and email alerts.
+* Supporting multiple camera feeds.
+* Developing mobile healthcare monitoring applications.
+
+
+## Challenges Faced
+
+During development, several challenges were encountered:
+
+* Lighting variations.
+* Camera angle differences.
+* Occlusion of body parts.
+* Similarity between sitting and falling postures.
+* Limited fall activity samples.
+* Real-time processing constraints.
+
+These challenges provide opportunities for future improvements and research.
+
+
+
+## Learning Outcomes
+
+Through this project, the following skills were developed:
+
+* Computer Vision
+* Pose Estimation
+* Deep Learning Model Training
+* Activity Classification
+* Healthcare AI Applications
+* Model Evaluation
+* Streamlit Deployment
+* Real-Time Monitoring Systems
+
+
+
+© 2026 Harini Priya Karthikeyan. All Rights Reserved.
