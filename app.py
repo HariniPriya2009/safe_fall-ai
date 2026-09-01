@@ -258,26 +258,96 @@ html, body, [class*="css"] {
     box-shadow: 0 0 16px rgba(0, 229, 255, 0.25);
 }
 
-/* File uploader dropzone */
+/* ===== FILE UPLOADER — full dark-glass restyle (kills the white box) ===== */
+/* The uploader's outer section wrapper is white by default — make it transparent glass */
+[data-testid="stFileUploader"] section,
+[data-testid="stFileUploader"] [data-testid="stFileUploaderDropzone"],
 [data-testid="stFileUploaderDropzone"] {
-    background: var(--glass-light) !important;
+    background: var(--glass) !important;
+    backdrop-filter: blur(18px) saturate(150%) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(150%) !important;
     border: 1px dashed var(--glass-border-strong) !important;
-    border-radius: 14px !important;
-    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-radius: 16px !important;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.30), inset 0 1px 0 rgba(255,255,255,0.04) !important;
     transition: all 0.25s ease;
 }
 [data-testid="stFileUploaderDropzone"]:hover {
     border-color: var(--cyan) !important;
-    box-shadow: 0 0 24px rgba(0, 229, 255, 0.25);
+    box-shadow: 0 0 28px rgba(0, 229, 255, 0.30), inset 0 1px 0 rgba(255,255,255,0.04) !important;
 }
-[data-testid="stFileUploaderDropzoneInstructions"], [data-testid="stFileUploaderDropzone"] * {
+/* Instructions area ("Drag and drop..." + "200MB per file • JPG, PNG") */
+[data-testid="stFileUploaderDropzoneInstructions"],
+[data-testid="stFileDropzoneInstructions"] {
+    background: transparent !important;
+}
+[data-testid="stFileUploaderDropzoneInstructions"] *,
+[data-testid="stFileDropzoneInstructions"] *,
+[data-testid="stFileUploaderDropzone"] * {
     color: var(--ink-soft) !important;
+}
+/* The main "Drag and drop..." label — brighten it */
+[data-testid="stFileUploaderDropzoneInstructions"] > div > span,
+[data-testid="stFileDropzoneInstructions"] > div > span {
+    color: var(--ink) !important; font-weight: 500;
+}
+/* The small file-spec hint ("200MB per file • JPG, PNG") */
+[data-testid="stFileUploaderDropzoneInstructions"] small,
+[data-testid="stFileDropzoneInstructions"] small {
+    color: var(--muted) !important; letter-spacing: 0.04em;
+}
+
+/* "Browse files" secondary button inside the uploader — dark glass, not white */
+[data-testid="stFileUploader"] [data-testid="stBaseButton-secondary"],
+section[data-testid="stFileUploader"] button[kind="secondary"],
+[data-testid="stFileUploaderDropzone"] button {
+    background: linear-gradient(145deg, rgba(10,132,255,0.20), rgba(0,229,255,0.10)) !important;
+    border: 1px solid var(--glass-border-strong) !important;
+    color: var(--ink) !important;
+    border-radius: 10px !important;
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 0 16px rgba(0, 229, 255, 0.18), inset 0 1px 0 rgba(255,255,255,0.06) !important;
+    transition: all 0.25s ease;
+}
+[data-testid="stFileUploader"] [data-testid="stBaseButton-secondary"]:hover,
+section[data-testid="stFileUploader"] button[kind="secondary"]:hover,
+[data-testid="stFileUploaderDropzone"] button:hover {
+    background: linear-gradient(145deg, rgba(10,132,255,0.32), rgba(0,229,255,0.18)) !important;
+    box-shadow: 0 0 26px rgba(0, 229, 255, 0.35), inset 0 1px 0 rgba(255,255,255,0.08) !important;
+    transform: translateY(-1px);
+}
+
+/* Uploaded file row (the "Uploaded" chip + filename + remove button) — dark glass */
+[data-testid="stFileUploader"] [data-testid="stFileUploaderFile"] ,
+[data-testid="stFileUploader"] [data-baseweb="file-uploader"] [data-baseweb="block"],
+[data-testid="stFileUploader"] ul,
+[data-testid="stFileUploader"] li {
+    background: var(--glass-light) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 12px !important;
+    color: var(--ink-soft) !important;
+}
+[data-testid="stFileUploader"] [data-testid="stFileUploaderFile"] * ,
+[data-testid="stFileUploader"] [data-baseweb="file-uploader"] * {
+    color: var(--ink-soft) !important;
+}
+/* The "Uploaded" status chip badge */
+[data-testid="stFileUploader"] [data-baseweb="tag"],
+[data-testid="stFileUploader"] [role="status"] {
+    background: rgba(48, 209, 88, 0.16) !important;
+    border: 1px solid rgba(48, 209, 88, 0.35) !important;
+    color: #4ADE80 !important;
+    border-radius: 999px !important;
 }
 
 /* Progress bar (video processing) */
 [data-testid="stProgress"] > div > div {
     background: linear-gradient(90deg, var(--primary), var(--cyan)) !important;
     box-shadow: 0 0 16px rgba(0, 229, 255, 0.55);
+}
+[data-testid="stProgress"] > div {
+    background: rgba(255,255,255,0.06);
+    border-radius: 999px;
+}
 
 /* Dataframe */
 [data-testid="stDataFrame"] {
@@ -701,11 +771,6 @@ with col_dashboard:
 
 st.markdown("---")
 st.markdown(
-    """
-    <p class="sf-footer">
-      SAFEFALL AI PROTOTYPE &middot; FA-2 DELIVERABLE &middot; POSE ESTIMATION: MEDIAPIPE &middot;
-      CLASSIFIER: 1D-CNN ON POSE LANDMARKS &middot; NOT FOR REAL CLINICAL USE
-    </p>
-    """,
+  
     unsafe_allow_html=True,
 )
