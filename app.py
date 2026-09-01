@@ -22,27 +22,30 @@ st.markdown("""
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-    --bg-0: #05070D;
-    --bg-1: #0A0E18;
-    --bg-2: #0F1421;
-    --glass: rgba(18, 24, 38, 0.55);
-    --glass-light: rgba(30, 40, 60, 0.35);
-    --glass-border: rgba(120, 180, 255, 0.12);
-    --glass-border-strong: rgba(0, 229, 255, 0.25);
-    --ink: #EAF2FF;
-    --ink-soft: #B8C7E0;
-    --muted: #6B7C99;
-    --primary: #0A84FF;
-    --primary-dim: rgba(10, 132, 255, 0.14);
-    --cyan: #00E5FF;
-    --cyan-dim: rgba(0, 229, 255, 0.12);
-    --alert: #FF453A;
-    --alert-dim: rgba(255, 69, 58, 0.12);
-    --alert-glow: rgba(255, 69, 58, 0.45);
-    --safe: #30D158;
-    --safe-dim: rgba(48, 209, 88, 0.10);
-    --safe-glow: rgba(48, 209, 88, 0.35);
-    --line: rgba(120, 160, 220, 0.10);
+    /* Pure black canvas */
+    --bg-0: #000000;
+    --bg-1: #03000A;
+    --bg-2: #07000F;
+    /* Glass surfaces — near-black, purple-tinted */
+    --glass: rgba(12, 6, 24, 0.55);
+    --glass-light: rgba(20, 10, 38, 0.40);
+    --glass-border: rgba(176, 38, 255, 0.14);
+    --glass-border-strong: rgba(176, 38, 255, 0.30);
+    /* Text — crisp white */
+    --ink: #FFFFFF;
+    --ink-soft: #E8E8F5;
+    --muted: #8A8AA8;
+    /* Neon purple hero accent + companions (all in the purple/magenta family) */
+    --purple: #B026FF;          /* electric violet — hero */
+    --purple-deep: #7B2CBF;     /* deep purple — gradient partner */
+    --purple-dim: rgba(176, 38, 255, 0.14);
+    --magenta: #FF2E97;         /* hot magenta — emergency / fall */
+    --magenta-dim: rgba(255, 46, 151, 0.12);
+    --magenta-glow: rgba(255, 46, 151, 0.50);
+    --violet: #9D4EDD;          /* soft violet — safe / normal */
+    --violet-dim: rgba(157, 78, 221, 0.12);
+    --violet-glow: rgba(157, 78, 221, 0.40);
+    --line: rgba(176, 38, 255, 0.12);
 }
 
 /* ===================== GLOBAL TYPE & BASE ===================== */
@@ -51,30 +54,29 @@ html, body, [class*="css"] {
     color: var(--ink);
 }
 
-/* Deep space gradient base with subtle radial glows (Apple/Tesla vibe) */
+/* Pure black base with faint neon-purple radial glows (classy cyber-luxe depth) */
 [data-testid="stAppViewContainer"] {
     background:
-        radial-gradient(1200px 700px at 12% -10%, rgba(10, 132, 255, 0.18), transparent 60%),
-        radial-gradient(1000px 800px at 105% 8%, rgba(0, 229, 255, 0.12), transparent 55%),
-        radial-gradient(900px 900px at 50% 120%, rgba(10, 132, 255, 0.08), transparent 60%),
+        radial-gradient(1200px 700px at 10% -10%, rgba(176, 38, 255, 0.16), transparent 60%),
+        radial-gradient(1000px 800px at 108% 6%, rgba(255, 46, 151, 0.10), transparent 55%),
+        radial-gradient(900px 900px at 50% 125%, rgba(123, 44, 191, 0.10), transparent 60%),
         linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 100%);
     background-attachment: fixed;
 }
 
 [data-testid="stMain"] { background: transparent; }
 
-/* Remove default Streamlit block padding so glass cards sit flush */
 .block-container { padding-top: 2.2rem; padding-bottom: 2rem; max-width: 1280px; }
 
 /* ===================== GLASS PRIMITIVE ===================== */
 .sf-glass {
     background: var(--glass);
-    backdrop-filter: blur(20px) saturate(150%);
-    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
     border: 1px solid var(--glass-border);
     border-radius: 18px;
     box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.35),
+        0 8px 32px rgba(0, 0, 0, 0.55),
         inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 .sf-glass-tight { border-radius: 14px; }
@@ -83,13 +85,13 @@ html, body, [class*="css"] {
 .sf-header { padding: 0.4rem 0 1rem 0; }
 .sf-eyebrow {
     font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.72rem; letter-spacing: 0.22em;
-    text-transform: uppercase; color: var(--cyan); margin-bottom: 0.5rem;
-    text-shadow: 0 0 18px rgba(0, 229, 255, 0.55);
+    text-transform: uppercase; color: var(--purple); margin-bottom: 0.5rem;
+    text-shadow: 0 0 20px rgba(176, 38, 255, 0.65);
 }
 .sf-title {
     font-family: 'Inter', sans-serif; font-weight: 700; font-size: 3rem;
     line-height: 1.05; letter-spacing: -0.02em; color: var(--ink); margin: 0;
-    background: linear-gradient(180deg, #FFFFFF 0%, #BFE3FF 100%);
+    background: linear-gradient(180deg, #FFFFFF 0%, #E0B0FF 100%);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     background-clip: text;
 }
@@ -98,16 +100,16 @@ html, body, [class*="css"] {
     max-width: 660px; line-height: 1.55;
 }
 
-/* Glowing ECG pulse divider */
+/* Glowing ECG pulse divider — neon purple gradient */
 .sf-pulse { width: 100%; height: 40px; margin: 1.3rem 0 0.5rem 0; display: block;
-    filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.6)); }
+    filter: drop-shadow(0 0 10px rgba(176, 38, 255, 0.75)); }
 
 /* ===================== SIDEBAR ===================== */
 [data-testid="stSidebar"] {
     background:
-        linear-gradient(180deg, rgba(15, 20, 33, 0.85), rgba(10, 14, 24, 0.85));
-    backdrop-filter: blur(24px) saturate(140%);
-    -webkit-backdrop-filter: blur(24px) saturate(140%);
+        linear-gradient(180deg, rgba(10, 5, 20, 0.88), rgba(3, 0, 10, 0.88));
+    backdrop-filter: blur(24px) saturate(130%);
+    -webkit-backdrop-filter: blur(24px) saturate(130%);
     border-right: 1px solid var(--glass-border);
 }
 [data-testid="stSidebar"] * { color: var(--ink-soft) !important; }
@@ -115,16 +117,16 @@ html, body, [class*="css"] {
 
 .sf-badge {
     width: 46px; height: 46px; border-radius: 13px;
-    background: linear-gradient(145deg, rgba(10,132,255,0.30), rgba(0,229,255,0.18));
+    background: linear-gradient(145deg, rgba(176,38,255,0.35), rgba(255,46,151,0.18));
     border: 1px solid var(--glass-border-strong);
     display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
     margin-bottom: 0.7rem;
-    box-shadow: 0 0 24px rgba(0, 229, 255, 0.35), inset 0 1px 0 rgba(255,255,255,0.08);
+    box-shadow: 0 0 26px rgba(176, 38, 255, 0.45), inset 0 1px 0 rgba(255,255,255,0.08);
     animation: sf-badge-glow 3.4s ease-in-out infinite;
 }
 @keyframes sf-badge-glow {
-    0%, 100% { box-shadow: 0 0 18px rgba(0, 229, 255, 0.30), inset 0 1px 0 rgba(255,255,255,0.08); }
-    50%      { box-shadow: 0 0 34px rgba(0, 229, 255, 0.55), inset 0 1px 0 rgba(255,255,255,0.08); }
+    0%, 100% { box-shadow: 0 0 20px rgba(176, 38, 255, 0.38), inset 0 1px 0 rgba(255,255,255,0.08); }
+    50%      { box-shadow: 0 0 38px rgba(176, 38, 255, 0.65), inset 0 1px 0 rgba(255,255,255,0.08); }
 }
 .sf-sidebar-title { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1.28rem; margin: 0; letter-spacing: -0.01em; }
 .sf-sidebar-sub { font-size: 0.82rem; color: var(--muted); margin-top: 0.1rem; }
@@ -140,13 +142,14 @@ html, body, [class*="css"] {
 .sf-metric {
     flex: 1; padding: 1rem 1.1rem; border-radius: 16px;
     background: var(--glass);
-    backdrop-filter: blur(18px) saturate(140%);
-    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    backdrop-filter: blur(18px) saturate(130%);
+    -webkit-backdrop-filter: blur(18px) saturate(130%);
     border: 1px solid var(--glass-border);
-    box-shadow: 0 6px 24px rgba(0,0,0,0.30), inset 0 1px 0 rgba(255,255,255,0.04);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.04);
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
-.sf-metric:hover { transform: translateY(-2px); border-color: var(--glass-border-strong); }
+.sf-metric:hover { transform: translateY(-2px); border-color: var(--glass-border-strong);
+    box-shadow: 0 0 26px rgba(176, 38, 255, 0.25), inset 0 1px 0 rgba(255,255,255,0.04); }
 .sf-metric-label {
     font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.66rem; letter-spacing: 0.14em;
     text-transform: uppercase; color: var(--muted);
@@ -155,17 +158,17 @@ html, body, [class*="css"] {
     font-family: 'Inter', sans-serif; font-weight: 700; font-size: 2rem;
     color: var(--ink); margin-top: 0.2rem; letter-spacing: -0.02em;
 }
-.sf-metric-fall .sf-metric-value { color: var(--alert); text-shadow: 0 0 22px var(--alert-glow); }
-.sf-metric-normal .sf-metric-value { color: var(--safe); text-shadow: 0 0 22px var(--safe-glow); }
-.sf-metric-fall { border-color: rgba(255, 69, 58, 0.22); }
-.sf-metric-normal { border-color: rgba(48, 209, 88, 0.20); }
+.sf-metric-fall .sf-metric-value { color: var(--magenta); text-shadow: 0 0 22px var(--magenta-glow); }
+.sf-metric-normal .sf-metric-value { color: var(--violet); text-shadow: 0 0 22px var(--violet-glow); }
+.sf-metric-fall { border-color: rgba(255, 46, 151, 0.24); }
+.sf-metric-normal { border-color: rgba(157, 78, 221, 0.22); }
 
 /* ===================== ALERT BANNERS ===================== */
 .sf-alert {
     border-radius: 16px; padding: 1.05rem 1.25rem; display: flex; gap: 0.9rem;
     align-items: flex-start; margin: 0.7rem 0;
-    backdrop-filter: blur(16px) saturate(140%);
-    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    backdrop-filter: blur(16px) saturate(130%);
+    -webkit-backdrop-filter: blur(16px) saturate(130%);
     animation: sf-alert-in 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 @keyframes sf-alert-in {
@@ -173,40 +176,41 @@ html, body, [class*="css"] {
     to   { opacity: 1; transform: translateY(0); }
 }
 .sf-alert-danger {
-    background: var(--alert-dim);
-    border: 1px solid rgba(255, 69, 58, 0.35);
-    box-shadow: 0 0 30px rgba(255, 69, 58, 0.25), inset 0 1px 0 rgba(255,255,255,0.04);
+    background: var(--magenta-dim);
+    border: 1px solid rgba(255, 46, 151, 0.38);
+    box-shadow: 0 0 30px rgba(255, 46, 151, 0.28), inset 0 1px 0 rgba(255,255,255,0.04);
     animation: sf-alert-in 0.5s cubic-bezier(0.22, 1, 0.36, 1), sf-danger-pulse 2.2s ease-in-out infinite 0.5s;
 }
 @keyframes sf-danger-pulse {
-    0%, 100% { box-shadow: 0 0 22px rgba(255, 69, 58, 0.20), inset 0 1px 0 rgba(255,255,255,0.04); }
-    50%      { box-shadow: 0 0 42px rgba(255, 69, 58, 0.45), inset 0 1px 0 rgba(255,255,255,0.04); }
+    0%, 100% { box-shadow: 0 0 22px rgba(255, 46, 151, 0.22), inset 0 1px 0 rgba(255,255,255,0.04); }
+    50%      { box-shadow: 0 0 44px rgba(255, 46, 151, 0.50), inset 0 1px 0 rgba(255,255,255,0.04); }
 }
 .sf-alert-safe {
-    background: var(--safe-dim);
-    border: 1px solid rgba(48, 209, 88, 0.30);
-    box-shadow: 0 0 26px rgba(48, 209, 88, 0.18), inset 0 1px 0 rgba(255,255,255,0.04);
+    background: var(--violet-dim);
+    border: 1px solid rgba(157, 78, 221, 0.32);
+    box-shadow: 0 0 26px rgba(157, 78, 221, 0.22), inset 0 1px 0 rgba(255,255,255,0.04);
 }
 .sf-alert-icon { font-size: 1.35rem; line-height: 1.4; }
 .sf-alert-title { font-weight: 600; font-size: 0.98rem; letter-spacing: -0.01em; }
-.sf-alert-danger .sf-alert-title { color: #FF6B61; }
-.sf-alert-safe .sf-alert-title { color: #4ADE80; }
+.sf-alert-danger .sf-alert-title { color: #FF6BB5; }
+.sf-alert-safe .sf-alert-title { color: #B98CFF; }
 .sf-alert-body { font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.2rem; }
 
 /* ===================== PREDICTION RESULT BANNER ===================== */
 .sf-result {
     display: flex; align-items: baseline; gap: 0.7rem; padding: 0.95rem 1.2rem;
-    background: linear-gradient(135deg, rgba(10,132,255,0.16), rgba(0,229,255,0.08));
+    background: linear-gradient(135deg, rgba(176,38,255,0.18), rgba(255,46,151,0.08));
     border: 1px solid var(--glass-border-strong);
     border-radius: 14px; margin: 0.8rem 0;
-    backdrop-filter: blur(16px) saturate(140%);
-    -webkit-backdrop-filter: blur(16px) saturate(140%);
-    box-shadow: 0 0 28px rgba(0, 229, 255, 0.18), inset 0 1px 0 rgba(255,255,255,0.05);
+    backdrop-filter: blur(16px) saturate(130%);
+    -webkit-backdrop-filter: blur(16px) saturate(130%);
+    box-shadow: 0 0 30px rgba(176, 38, 255, 0.22), inset 0 1px 0 rgba(255,255,255,0.05);
     animation: sf-alert-in 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .sf-result-label {
     font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.72rem;
-    text-transform: uppercase; letter-spacing: 0.14em; color: var(--cyan);
+    text-transform: uppercase; letter-spacing: 0.14em; color: var(--purple);
+    text-shadow: 0 0 14px rgba(176, 38, 255, 0.50);
 }
 .sf-result-value {
     font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1.35rem;
@@ -220,11 +224,11 @@ html, body, [class*="css"] {
 /* ===================== EMPTY STATE CARD ===================== */
 .sf-card {
     background: var(--glass);
-    backdrop-filter: blur(18px) saturate(140%);
-    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    backdrop-filter: blur(18px) saturate(130%);
+    -webkit-backdrop-filter: blur(18px) saturate(130%);
     border: 1px solid var(--glass-border); border-radius: 16px;
     padding: 1.3rem 1.4rem;
-    box-shadow: 0 6px 24px rgba(0,0,0,0.30), inset 0 1px 0 rgba(255,255,255,0.04);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.04);
 }
 
 /* ===================== STREAMLIT WIDGET OVERRIDES ===================== */
@@ -232,15 +236,15 @@ html, body, [class*="css"] {
 .stButton>button {
     border-radius: 12px;
     font-family: 'Inter', sans-serif; font-weight: 600; letter-spacing: 0.01em;
-    background: linear-gradient(145deg, rgba(10,132,255,0.22), rgba(0,229,255,0.12));
+    background: linear-gradient(145deg, rgba(176,38,255,0.26), rgba(255,46,151,0.14));
     border: 1px solid var(--glass-border-strong);
     color: var(--ink) !important;
-    box-shadow: 0 0 20px rgba(0, 229, 255, 0.20), inset 0 1px 0 rgba(255,255,255,0.06);
+    box-shadow: 0 0 22px rgba(176, 38, 255, 0.25), inset 0 1px 0 rgba(255,255,255,0.06);
     transition: all 0.25s ease;
 }
 .stButton>button:hover {
-    background: linear-gradient(145deg, rgba(10,132,255,0.34), rgba(0,229,255,0.20));
-    box-shadow: 0 0 30px rgba(0, 229, 255, 0.40), inset 0 1px 0 rgba(255,255,255,0.08);
+    background: linear-gradient(145deg, rgba(176,38,255,0.40), rgba(255,46,151,0.22));
+    box-shadow: 0 0 34px rgba(176, 38, 255, 0.45), inset 0 1px 0 rgba(255,255,255,0.08);
     transform: translateY(-1px);
 }
 
@@ -255,27 +259,25 @@ html, body, [class*="css"] {
 [data-testid="stRadio"] label[data-checked="true"],
 [data-testid="stRadio"] label:has(svg) {
     border-color: var(--glass-border-strong);
-    box-shadow: 0 0 16px rgba(0, 229, 255, 0.25);
+    box-shadow: 0 0 18px rgba(176, 38, 255, 0.30);
 }
 
-/* ===== FILE UPLOADER — full dark-glass restyle (kills the white box) ===== */
-/* The uploader's outer section wrapper is white by default — make it transparent glass */
+/* ===== FILE UPLOADER — full dark-glass restyle (no white box) ===== */
 [data-testid="stFileUploader"] section,
 [data-testid="stFileUploader"] [data-testid="stFileUploaderDropzone"],
 [data-testid="stFileUploaderDropzone"] {
     background: var(--glass) !important;
-    backdrop-filter: blur(18px) saturate(150%) !important;
-    -webkit-backdrop-filter: blur(18px) saturate(150%) !important;
+    backdrop-filter: blur(18px) saturate(140%) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(140%) !important;
     border: 1px dashed var(--glass-border-strong) !important;
     border-radius: 16px !important;
-    box-shadow: 0 6px 24px rgba(0,0,0,0.30), inset 0 1px 0 rgba(255,255,255,0.04) !important;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.04) !important;
     transition: all 0.25s ease;
 }
 [data-testid="stFileUploaderDropzone"]:hover {
-    border-color: var(--cyan) !important;
-    box-shadow: 0 0 28px rgba(0, 229, 255, 0.30), inset 0 1px 0 rgba(255,255,255,0.04) !important;
+    border-color: var(--purple) !important;
+    box-shadow: 0 0 30px rgba(176, 38, 255, 0.35), inset 0 1px 0 rgba(255,255,255,0.04) !important;
 }
-/* Instructions area ("Drag and drop..." + "200MB per file • JPG, PNG") */
 [data-testid="stFileUploaderDropzoneInstructions"],
 [data-testid="stFileDropzoneInstructions"] {
     background: transparent !important;
@@ -285,38 +287,36 @@ html, body, [class*="css"] {
 [data-testid="stFileUploaderDropzone"] * {
     color: var(--ink-soft) !important;
 }
-/* The main "Drag and drop..." label — brighten it */
 [data-testid="stFileUploaderDropzoneInstructions"] > div > span,
 [data-testid="stFileDropzoneInstructions"] > div > span {
     color: var(--ink) !important; font-weight: 500;
 }
-/* The small file-spec hint ("200MB per file • JPG, PNG") */
 [data-testid="stFileUploaderDropzoneInstructions"] small,
 [data-testid="stFileDropzoneInstructions"] small {
     color: var(--muted) !important; letter-spacing: 0.04em;
 }
 
-/* "Browse files" secondary button inside the uploader — dark glass, not white */
+/* "Browse files" secondary button — neon purple glass */
 [data-testid="stFileUploader"] [data-testid="stBaseButton-secondary"],
 section[data-testid="stFileUploader"] button[kind="secondary"],
 [data-testid="stFileUploaderDropzone"] button {
-    background: linear-gradient(145deg, rgba(10,132,255,0.20), rgba(0,229,255,0.10)) !important;
+    background: linear-gradient(145deg, rgba(176,38,255,0.24), rgba(255,46,151,0.12)) !important;
     border: 1px solid var(--glass-border-strong) !important;
     color: var(--ink) !important;
     border-radius: 10px !important;
     backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 0 16px rgba(0, 229, 255, 0.18), inset 0 1px 0 rgba(255,255,255,0.06) !important;
+    box-shadow: 0 0 18px rgba(176, 38, 255, 0.22), inset 0 1px 0 rgba(255,255,255,0.06) !important;
     transition: all 0.25s ease;
 }
 [data-testid="stFileUploader"] [data-testid="stBaseButton-secondary"]:hover,
 section[data-testid="stFileUploader"] button[kind="secondary"]:hover,
 [data-testid="stFileUploaderDropzone"] button:hover {
-    background: linear-gradient(145deg, rgba(10,132,255,0.32), rgba(0,229,255,0.18)) !important;
-    box-shadow: 0 0 26px rgba(0, 229, 255, 0.35), inset 0 1px 0 rgba(255,255,255,0.08) !important;
+    background: linear-gradient(145deg, rgba(176,38,255,0.38), rgba(255,46,151,0.20)) !important;
+    box-shadow: 0 0 28px rgba(176, 38, 255, 0.40), inset 0 1px 0 rgba(255,255,255,0.08) !important;
     transform: translateY(-1px);
 }
 
-/* Uploaded file row (the "Uploaded" chip + filename + remove button) — dark glass */
+/* Uploaded file row — dark glass */
 [data-testid="stFileUploader"] [data-testid="stFileUploaderFile"] ,
 [data-testid="stFileUploader"] [data-baseweb="file-uploader"] [data-baseweb="block"],
 [data-testid="stFileUploader"] ul,
@@ -330,19 +330,19 @@ section[data-testid="stFileUploader"] button[kind="secondary"]:hover,
 [data-testid="stFileUploader"] [data-baseweb="file-uploader"] * {
     color: var(--ink-soft) !important;
 }
-/* The "Uploaded" status chip badge */
+/* "Uploaded" status chip — violet glass pill */
 [data-testid="stFileUploader"] [data-baseweb="tag"],
 [data-testid="stFileUploader"] [role="status"] {
-    background: rgba(48, 209, 88, 0.16) !important;
-    border: 1px solid rgba(48, 209, 88, 0.35) !important;
-    color: #4ADE80 !important;
+    background: rgba(157, 78, 221, 0.20) !important;
+    border: 1px solid rgba(157, 78, 221, 0.40) !important;
+    color: #B98CFF !important;
     border-radius: 999px !important;
 }
 
-/* Progress bar (video processing) */
+/* Progress bar (video processing) — neon purple → magenta */
 [data-testid="stProgress"] > div > div {
-    background: linear-gradient(90deg, var(--primary), var(--cyan)) !important;
-    box-shadow: 0 0 16px rgba(0, 229, 255, 0.55);
+    background: linear-gradient(90deg, var(--purple), var(--magenta)) !important;
+    box-shadow: 0 0 18px rgba(176, 38, 255, 0.60);
 }
 [data-testid="stProgress"] > div {
     background: rgba(255,255,255,0.06);
@@ -357,7 +357,8 @@ section[data-testid="stFileUploader"] button[kind="secondary"]:hover,
     overflow: hidden;
 }
 [data-testid="stDataFrame"] * { color: var(--ink-soft) !important; }
-[data-testid="stDataFrame"] thead th { color: var(--cyan) !important; font-weight: 600; }
+[data-testid="stDataFrame"] thead th { color: var(--purple) !important; font-weight: 600;
+    text-shadow: 0 0 12px rgba(176, 38, 255, 0.45); }
 
 /* Altair / bar chart */
 .vega-embed, [data-testid="stVegaLiteChart"] {
@@ -367,11 +368,11 @@ section[data-testid="stFileUploader"] button[kind="secondary"]:hover,
     padding: 0.8rem;
 }
 
-/* Image container subtle frame */
+/* Image container — neon purple frame glow */
 [data-testid="stImage"] img {
     border-radius: 14px;
     border: 1px solid var(--glass-border);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.45), 0 0 18px rgba(0, 229, 255, 0.10);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.55), 0 0 20px rgba(176, 38, 255, 0.18);
 }
 
 /* Captions */
@@ -387,12 +388,12 @@ hr, [data-testid="stHorizontalBlock"] > hr {
 
 /* Error message */
 [data-testid="stAlert"] {
-    background: var(--alert-dim) !important;
-    border: 1px solid rgba(255, 69, 58, 0.35) !important;
+    background: var(--magenta-dim) !important;
+    border: 1px solid rgba(255, 46, 151, 0.38) !important;
     border-radius: 14px !important;
     backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
 }
-[data-testid="stAlert"] * { color: #FFB8B3 !important; }
+[data-testid="stAlert"] * { color: #FFB8D8 !important; }
 
 /* Footer */
 .sf-footer {
@@ -586,10 +587,10 @@ PULSE_SVG = """
 <svg class="sf-pulse" viewBox="0 0 600 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="pulseGrad" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#0A84FF" stop-opacity="0.2"/>
-      <stop offset="40%" stop-color="#00E5FF" stop-opacity="0.9"/>
-      <stop offset="60%" stop-color="#00E5FF" stop-opacity="0.9"/>
-      <stop offset="100%" stop-color="#0A84FF" stop-opacity="0.2"/>
+      <stop offset="0%" stop-color="#7B2CBF" stop-opacity="0.2"/>
+      <stop offset="40%" stop-color="#B026FF" stop-opacity="0.95"/>
+      <stop offset="60%" stop-color="#FF2E97" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#7B2CBF" stop-opacity="0.2"/>
     </linearGradient>
   </defs>
   <polyline points="0,20 140,20 160,20 172,4 184,36 196,8 208,20 240,20 600,20"
@@ -752,7 +753,7 @@ with col_dashboard:
         log_df = pd.DataFrame(st.session_state.activity_log)
 
         st.markdown('<div class="sf-section-label">Activity distribution</div>', unsafe_allow_html=True)
-        st.bar_chart(log_df["activity"].value_counts(), color="#00E5FF")
+        st.bar_chart(log_df["activity"].value_counts(), color="#B026FF")
 
         st.markdown('<div class="sf-section-label">Recent predictions</div>', unsafe_allow_html=True)
         st.dataframe(log_df.tail(10), width="stretch", hide_index=True)
