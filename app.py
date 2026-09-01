@@ -771,6 +771,11 @@ with col_dashboard:
 
 st.markdown("---")
 st.markdown(
-  
+    """
+    <p class="sf-footer">
+      SAFEFALL AI PROTOTYPE &middot; FA-2 DELIVERABLE &middot; POSE ESTIMATION: MEDIAPIPE &middot;
+      CLASSIFIER: 1D-CNN ON POSE LANDMARKS &middot; NOT FOR REAL CLINICAL USE
+    </p>
+    """,
     unsafe_allow_html=True,
 )
